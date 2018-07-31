@@ -30,7 +30,7 @@ export class Holder extends React.Component {
 export class Control extends React.Component {
   /*render() {
 		return (
-			<button className="control" onClick={() => this.props.onClick(this.props.command)}>
+			<button className="control" onClick={() => this.props.onClick(this.props.cmd)}>
 				{this.props.value}
 			</button>
 		);
@@ -44,7 +44,7 @@ export class Control extends React.Component {
         stopPropagation
         className="control"
         style={this.props.style || {}}
-        onTap={() => this.props.onClick(this.props.command)}
+        onTap={() => this.props.onClick(this.props.cmd)}
       >
         {this.props.value}
       </Tappable>

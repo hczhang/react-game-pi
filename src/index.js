@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { pi } from "./components/const";
+import { PI, CTRL_KEYS, CTRL_STEPS } from "./components/const";
 import { Clock, Timer } from "./components/clock";
 import { Square } from "./components/squares";
 import { ControlPanel } from "./components/control";
@@ -10,7 +10,7 @@ import "./index.css";
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.blueprint = pi.split("");
+    this.blueprint = PI.split("");
     this.activeSquare = null;
     this.isStarted = false;
     this.state = { squares: Array(100).fill(""), active: 0 };
@@ -44,8 +44,8 @@ class Board extends React.Component {
         solved={isSolved}
         value={this.state.squares[i]}
         onClick={() => this.handleClick(i)}
-        onKeyDown={e => this.handleKeyDown(e, i)}
-        onKeyPress={e => this.handleKeyPress(e, i)}
+        onKeyDown={e => this.handleKeyDown(e)}
+        onKeyPress={e => this.handleKeyPress(e)}
       />
     );
   }
@@ -58,97 +58,42 @@ class Board extends React.Component {
     this.changeState({ active: i });
   }
 
-  handleKeyDown(e, i) {
-    let squares = this.state.squares.slice();
-    let next = i;
-    switch (e.keyCode) {
-      case 37:
-        next--;
-        break;
-      case 38:
-        next -= 10;
-        break;
-      case 9:
-      case 39:
-        next++;
-        break;
-      case 40:
-        next += 10;
-        break;
-      case 8:
-        for (; next > 0 && squares[next] === ""; next--);
-        squares[next] = "";
-        this.changeState({ squares: squares, active: next });
-        return;
-      case 46:
-        squares[i] = "";
-        this.changeState({ squares: squares });
-        return;
-      default:
-        return;
-    }
-
-    if (next !== i && next >= 0 && next <= 99) {
-      e.preventDefault();
-      this.changeState({ active: next });
-    }
+  /** Keyboard control keys */
+  handleKeyDown(e) {
+    let cmd = CTRL_KEYS[e.keyCode];
+    if (!cmd) return;
+    e.preventDefault();
+    this.handleControl(cmd);
   }
 
-  handleKeyPress(e, i) {
-    let squares = this.state.squares.slice();
+  /** Keyboard press except control keys */
+  handleKeyPress(e) {
     if (e.charCode >= 48 && e.charCode <= 57) {
-      squares[i] = e.charCode - 48;
-      this.changeState({ squares: squares });
-      if (squares[i] === +this.blueprint[i]) {
-        this.changeState({ active: i + 1 });
-      }
+      this.handleControl(e.charCode - 48);
     }
   }
 
-  handleControl(command) {
+  handleControl(cmd) {
     let squares = this.state.squares.slice();
     let i = this.state.active;
 
-    if (command >= 0 && command <= 9) {
-      squares[i] = command;
+    // numbers
+    if (cmd >= 0 && cmd <= 9) {
+      squares[i] = cmd;
       this.changeState({ squares: squares });
       if (squares[i] === +this.blueprint[i]) {
-        this.changeState({ active: i + 1 });
+        this.changeState({ active: Math.min(i + 1, 99) });
       }
-    } else if (command >= 37 && command <= 40) {
-      let next = i;
-      switch (command) {
-        case 37:
-          next--;
-          break;
-        case 38:
-          next -= 10;
-          break;
-        case 39:
-          next++;
-          break;
-        case 40:
-          next += 10;
-          break;
-        default:
-          break;
+    }
+    // arrows left/up/right/down
+    else if (CTRL_STEPS[cmd]) {
+      i += CTRL_STEPS[cmd];
+      if (i >= 0 && i <= 99) {
+        this.changeState({ active: i });
       }
-
-      if (next !== i && next >= 0 && next <= 99) {
-        this.changeState({ active: next });
-      }
-    } else if (command === 11) {
-      for (; i > 0 && squares[i] === ""; i--);
-      squares[i] = "";
-      this.changeState({ squares: squares, active: i });
-    } else if (command === 12) {
-      squares[i] = "";
-      this.changeState({ squares: squares });
-    } else if (command === 13) {
-      this.changeState({ squares: Array(100).fill(""), active: 0 });
-    } else if (command === 14) {
-    } else if (command === 15) {
-    } else if (command === 20) {
+    }
+    // hint
+    else if (cmd === "hint") {
       if (!this.backup) {
         this.backup = this.state.squares.slice();
         this.changeState({ squares: this.blueprint.slice() });
@@ -156,8 +101,47 @@ class Board extends React.Component {
         this.changeState({ squares: this.backup.slice() });
         this.backup = null;
       }
-    } else if (command === 21) {
+    }
+    // pause timer
+    else if (cmd === "pause") {
       this.props.onStop();
+    }
+    // backspace
+    else if (cmd === "backspace") {
+      for (; i > 0 && squares[i] === ""; i--);
+      squares[i] = "";
+      this.changeState({ squares: squares, active: i });
+    }
+    // delete
+    else if (cmd === "del") {
+      squares[i] = "";
+      this.changeState({ squares: squares });
+    }
+    // clear all
+    else if (cmd === "clear") {
+      this.changeState({ squares: Array(100).fill(""), active: 0 });
+    }
+    // undo
+    else if (cmd === "undo") {
+    }
+    // redo
+    else if (cmd === "redo") {
+    }
+    // home
+    else if (cmd === "home") {
+      this.changeState({ active: i - (i % 10) });
+    }
+    // end
+    else if (cmd === "end") {
+      this.changeState({ active: i - (i % 10) + 9 });
+    }
+    // pageup
+    else if (cmd === "pageup") {
+      this.changeState({ active: i % 10 });
+    }
+    // pagedown
+    else if (cmd === "pagedown") {
+      this.changeState({ active: (i % 10) + 90 });
     }
   }
 
@@ -182,10 +166,11 @@ class Game extends React.Component {
     this.handleControl = this.handleControl.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
   }
 
-  handleControl(command) {
-    this.board.current.handleControl(command);
+  handleControl(cmd) {
+    this.board.current.handleControl(cmd);
   }
 
   startTimer() {
