@@ -1,10 +1,41 @@
 import React from "react";
-import { Holder, Control } from "./squares";
+import Tappable from "react-tappable";
+
+class Holder extends React.Component {
+  render() {
+    return <button className="holder" />;
+  }
+}
+
+class Control extends React.Component {
+  /*render() {
+		return (
+			<button className="control" onClick={() => this.props.onClick(this.props.cmd)}>
+				{this.props.value}
+			</button>
+		);
+	}*/
+
+  render() {
+    return (
+      <Tappable
+        component="button"
+        preventDefault
+        stopPropagation
+        className="control"
+        style={this.props.style || {}}
+        onTap={() => this.props.onClick(this.props.cmd)}
+      >
+        {this.props.value}
+      </Tappable>
+    );
+  }
+}
 
 export class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
-    this.clickHandler = this.props.clickHander;
+    this.clickHandler = this.props.clickHandler;
   }
 
   render() {

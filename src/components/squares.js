@@ -1,5 +1,4 @@
 import React from "react";
-import Tappable from "react-tappable";
 
 export class Square extends React.Component {
   render() {
@@ -17,37 +16,6 @@ export class Square extends React.Component {
       >
         {this.props.value}
       </button>
-    );
-  }
-}
-
-export class Holder extends React.Component {
-  render() {
-    return <button className="holder" />;
-  }
-}
-
-export class Control extends React.Component {
-  /*render() {
-		return (
-			<button className="control" onClick={() => this.props.onClick(this.props.cmd)}>
-				{this.props.value}
-			</button>
-		);
-	}*/
-
-  render() {
-    return (
-      <Tappable
-        component="button"
-        preventDefault
-        stopPropagation
-        className="control"
-        style={this.props.style || {}}
-        onTap={() => this.props.onClick(this.props.cmd)}
-      >
-        {this.props.value}
-      </Tappable>
     );
   }
 }

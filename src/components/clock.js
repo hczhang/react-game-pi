@@ -1,4 +1,5 @@
 import React from "react";
+import { TIMER } from "./const";
 
 export class Clock extends React.Component {
   constructor(props) {
@@ -32,46 +33,54 @@ export class Clock extends React.Component {
 export class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.startTime = Date.now();
-    this.state = { time: 0 };
-
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
-    this.reset = this.reset.bind(this);
+    this.timer = null;
+    this.startTime = null;
+    this.state = { chrono: 0 };
   }
 
   componentWillUnmount() {
-    this.stop();
+    this.pause();
   }
 
   start() {
-    this.startTime = Date.now();
+    this.startTime = Date.now() - this.state.chrono;
     this.timer = setInterval(() => {
-      this.setState({ time: Date.now() - this.startTime });
+      this.setState({ chrono: Date.now() - this.startTime });
     }, 100);
   }
 
-  stop() {
+  pause() {
+    if (!this.timer) return;
     clearInterval(this.timer);
+    this.timer = null;
   }
 
-  reset() {
-    this.stop();
-  }
-
-  render() {
-    let time = new Date(this.state.time);
-    let timeString =
+  getTimerString(time) {
+    time = new Date(time);
+    return (
       ("0" + time.getUTCHours()).slice(-2) +
       ":" +
       ("0" + time.getUTCMinutes()).slice(-2) +
       ":" +
       ("0" + time.getUTCSeconds()).slice(-2) +
       "." +
-      ("00" + time.getUTCMilliseconds()).slice(-3);
+      ("00" + time.getUTCMilliseconds()).slice(-3)
+    );
+  }
+
+  render() {
+    if (this.props.status === TIMER.INITIAL && this.state.chrono) {
+      this.pause();
+      this.setState({ chrono: 0 });
+    } else if (this.props.status === TIMER.STARTED && !this.timer) {
+      this.start();
+    } else if (this.props.status === TIMER.PAUSED) {
+      this.pause();
+    }
+
     return (
       <div className="clock">
-        <span>{timeString}</span>
+        <span>{this.getTimerString(this.state.chrono)}</span>
       </div>
     );
   }
