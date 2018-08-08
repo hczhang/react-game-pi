@@ -31,7 +31,7 @@ export class Board extends React.Component {
 
   renderSquare(i) {
     const isActive = this.props.state.active === i;
-    const isSolved = this.props.state.squares[i] === +BLUE_PRINT[i];
+    const isSolved = this.props.state.squares[i] === BLUE_PRINT[i];
     return (
       <Square
         ref={comp => (this.comps[i] = comp)}

@@ -4,7 +4,7 @@ const PI =
 const PI2 =
   "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196";
 
-export const BLUE_PRINT = PI.split("");
+export const BLUE_PRINT = PI.split("").map(e => +e);
 
 export const CTRL_KEYS = {
   9: "right",

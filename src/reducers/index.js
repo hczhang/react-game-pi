@@ -7,15 +7,19 @@ export const reducer = (state, action) => {
   if (action.type === "mouse") return { ...state, active: cmd };
   if (action.type === "timer") return { ...state, timer: cmd };
 
+  const checkSolved = squares => {
+    return !squares.slice(0, 10).some((el, i) => el !== BLUE_PRINT[i]);
+  };
+
   const squares = state.squares.slice();
   let i = state.active;
 
   // numbers
   if (cmd >= 0 && cmd <= 9) {
     squares[i] = cmd;
-    i = squares[i] === +BLUE_PRINT[i] ? Math.min(i + 1, 99) : i;
-    if (isSolved(state)) return { ...state, squares, active: i, timer: TIMER.PAUSED };
-    else return { ...state, squares, active: i, timer: TIMER.STARTED };
+    i = squares[i] === BLUE_PRINT[i] ? Math.min(i + 1, 99) : i;
+    const timerStatus = checkSolved(squares) ? TIMER.PAUSED : TIMER.STARTED;
+    return { ...state, squares, active: i, timer: timerStatus };
   }
   // arrows left/up/right/down
   else if (CTRL_STEPS[cmd]) {
@@ -71,9 +75,4 @@ export const reducer = (state, action) => {
   }
 
   return state;
-};
-
-const isSolved = state => {
-  let checksquares = state.squares.slice(0, 10);
-  return !checksquares.some((el, i) => el !== +BLUE_PRINT[i]);
 };
