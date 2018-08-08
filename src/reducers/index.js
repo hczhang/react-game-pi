@@ -3,12 +3,9 @@ import { BLUE_PRINT, CTRL_STEPS, TIMER } from "../components/const";
 export const reducer = (state, action) => {
   console.log(action);
 
-  if (action.type === "mouse") return { ...state, active: action.active };
-
   const cmd = action.cmd;
-  if (action.type === "timer") {
-    return { ...state, timer: cmd };
-  }
+  if (action.type === "mouse") return { ...state, active: cmd };
+  if (action.type === "timer") return { ...state, timer: cmd };
 
   const squares = state.squares.slice();
   let i = state.active;
@@ -17,7 +14,8 @@ export const reducer = (state, action) => {
   if (cmd >= 0 && cmd <= 9) {
     squares[i] = cmd;
     i = squares[i] === +BLUE_PRINT[i] ? Math.min(i + 1, 99) : i;
-    return { ...state, squares, active: i, timer: TIMER.STARTED };
+    if (isSolved(state)) return { ...state, squares, active: i, timer: TIMER.PAUSED };
+    else return { ...state, squares, active: i, timer: TIMER.STARTED };
   }
   // arrows left/up/right/down
   else if (CTRL_STEPS[cmd]) {
@@ -73,4 +71,9 @@ export const reducer = (state, action) => {
   }
 
   return state;
+};
+
+const isSolved = state => {
+  let checksquares = state.squares.slice(0, 10);
+  return !checksquares.some((el, i) => el !== +BLUE_PRINT[i]);
 };
