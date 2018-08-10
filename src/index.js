@@ -17,6 +17,10 @@ class Game extends React.Component {
     store.dispatch(action);
   }
 
+  componentWillUnmount() {
+    unsubscribe();
+  }
+
   render() {
     return (
       <div className="game">
@@ -37,4 +41,4 @@ const render = () => {
 
 render();
 
-store.subscribe(render);
+let unsubscribe = store.subscribe(render);
