@@ -4,7 +4,7 @@ import { Board } from "./board";
 import { ControlPanel } from "./control";
 import { store } from "../store";
 
-export class Game extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
     this.actionHandler = this.actionHandler.bind(this);
