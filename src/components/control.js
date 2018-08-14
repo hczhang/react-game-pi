@@ -1,6 +1,6 @@
 import React from "react";
 import Tappable from "react-tappable";
-import * as Actions from "./actions";
+import * as Actions from "../actions";
 
 class Holder extends React.Component {
   render() {

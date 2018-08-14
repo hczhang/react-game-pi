@@ -1,4 +1,4 @@
-import { TIMER } from "../const";
+import { TIMER } from "../components/const";
 export const setTimerStatus = status => {
   return { type: "TIMER", status };
 };

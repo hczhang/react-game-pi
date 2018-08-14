@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BLUE_PRINT, CTRL_KEYS } from "./const";
-import * as Actions from "./actions";
+import * as Actions from "../actions";
 
 class Square extends React.Component {
   render() {
