@@ -1,6 +1,7 @@
 import { BLUE_PRINT, CTRL_STEPS, TIMER } from "../components/const";
 import { combineReducers } from "redux";
-import undoable from "redux-undo";
+import undoable, { groupByActionTypes } from "redux-undo";
+import { ActionTypes } from "../actions";
 
 // const timerStatusReducer = (state = TIMER.INITIAL, action) => {
 //   switch (action.type) {
@@ -25,9 +26,9 @@ const checkSolved = squares => {
 const boardReducer = (state = initialState, action) => {
   console.log(action);
 
-  if (action.type === "TIMER") return { ...state, status: action.status };
-  if (action.type === "ACTIVE") return { ...state, active: action.active };
-  if (action.type !== "CONTROL" || !action.cmd) return state;
+  if (action.type === ActionTypes.TIMER) return { ...state, status: action.status };
+  if (action.type === ActionTypes.ACTIVE) return { ...state, active: action.active };
+  if (action.type !== ActionTypes.CONTROL || !action.cmd) return state;
 
   const cmd = action.cmd;
   const squares = state.squares.slice();
@@ -96,5 +97,11 @@ const boardReducer = (state = initialState, action) => {
   return state;
 };
 
-export default combineReducers({ board: boardReducer });
 // export default boardReducer;
+// export default combineReducers({ board: boardReducer }); // Adds combineReducers.
+console.log(groupByActionTypes);
+export default combineReducers({
+  board: undoable(boardReducer, {
+    limit: false
+  })
+}); // Adds undoable.

@@ -18,8 +18,10 @@ const App = ({ state, handler }) => {
 };
 
 const mapStateToProps = state => {
-  return { state: state.board };
   // return { state: state };
+  // return { state: state.board }; // With combineReducers.
+  console.log(state);
+  return { state: state.board.present }; // With undoable.
 };
 
 const mapDispatchToProps = dispatch => {
