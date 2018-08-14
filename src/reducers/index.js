@@ -1,16 +1,35 @@
 import { BLUE_PRINT, CTRL_STEPS, TIMER } from "../components/const";
+import { combineReducers } from "redux";
+import undoable from "redux-undo";
 
-export const reducer = (state, action) => {
+// const timerStatusReducer = (state = TIMER.INITIAL, action) => {
+//   switch (action.type) {
+//     case "TIMER":
+//       return action.status;
+//     default:
+//       return state;
+//   }
+// };
+
+const initialState = {
+  active: 0,
+  squares: Array(100).fill(""),
+  backup: null,
+  status: TIMER.INITIAL
+};
+
+const checkSolved = squares => {
+  return !squares.slice(0, 10).some((el, i) => el !== BLUE_PRINT[i]);
+};
+
+const boardReducer = (state = initialState, action) => {
   console.log(action);
 
+  if (action.type === "TIMER") return { ...state, status: action.status };
+  if (action.type === "ACTIVE") return { ...state, active: action.active };
+  if (action.type !== "CONTROL" || !action.cmd) return state;
+
   const cmd = action.cmd;
-  if (action.type === "mouse") return { ...state, active: cmd };
-  if (action.type === "timer") return { ...state, timer: cmd };
-
-  const checkSolved = squares => {
-    return !squares.slice(0, 10).some((el, i) => el !== BLUE_PRINT[i]);
-  };
-
   const squares = state.squares.slice();
   let i = state.active;
 
@@ -19,7 +38,7 @@ export const reducer = (state, action) => {
     squares[i] = cmd;
     i = squares[i] === BLUE_PRINT[i] ? Math.min(i + 1, 99) : i;
     const timerStatus = checkSolved(squares) ? TIMER.PAUSED : TIMER.STARTED;
-    return { ...state, squares, active: i, timer: timerStatus };
+    return { ...state, squares, active: i, status: timerStatus };
   }
   // arrows left/up/right/down
   else if (CTRL_STEPS[cmd]) {
@@ -34,7 +53,7 @@ export const reducer = (state, action) => {
   }
   // pause timer
   else if (cmd === "pause") {
-    return { ...state, timer: TIMER.PAUSED };
+    return { ...state, status: TIMER.PAUSED };
   }
   // backspace
   else if (cmd === "backspace") {
@@ -49,7 +68,7 @@ export const reducer = (state, action) => {
   }
   // clear all
   else if (cmd === "clear") {
-    return { ...state, squares: Array(100).fill(""), active: 0, timer: TIMER.INITIAL };
+    return { ...state, squares: Array(100).fill(""), active: 0, status: TIMER.INITIAL };
   }
   // undo
   else if (cmd === "undo") {
@@ -76,3 +95,6 @@ export const reducer = (state, action) => {
 
   return state;
 };
+
+export default combineReducers({ board: boardReducer });
+// export default boardReducer;

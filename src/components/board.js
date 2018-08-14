@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BLUE_PRINT, CTRL_KEYS } from "./const";
+import * as Actions from "./actions";
 
 class Square extends React.Component {
   render() {
@@ -52,7 +53,7 @@ export class Board extends React.Component {
   }
 
   handleClick(i) {
-    this.handler({ type: "mouse", cmd: i });
+    this.handler(Actions.setSquareActive(i));
   }
 
   /** Keyboard control keys */
@@ -60,13 +61,13 @@ export class Board extends React.Component {
     let cmd = CTRL_KEYS[e.keyCode];
     if (!cmd) return;
     e.preventDefault();
-    this.handler({ type: "control", cmd });
+    this.handler(Actions.setSquareControl(cmd));
   }
 
   /** Keyboard press except control keys */
   handleKeyPress(e) {
     if (e.charCode >= 48 && e.charCode <= 57) {
-      this.handler({ type: "control", cmd: e.charCode - 48 });
+      this.handler(Actions.setSquareControl(e.charCode - 48));
     }
   }
 

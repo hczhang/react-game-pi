@@ -1,5 +1,6 @@
 import React from "react";
 import Tappable from "react-tappable";
+import * as Actions from "./actions";
 
 class Holder extends React.Component {
   render() {
@@ -24,7 +25,7 @@ class Control extends React.Component {
         stopPropagation
         className="control"
         style={this.props.style || {}}
-        onTap={() => this.props.onClick({ type: "control", cmd: this.props.cmd })}
+        onTap={() => this.props.onClick(Actions.setSquareControl(this.props.cmd))}
       >
         {this.props.value}
       </Tappable>

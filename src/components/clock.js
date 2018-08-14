@@ -69,7 +69,7 @@ export class Timer extends React.Component {
   }
 
   render() {
-    const status = this.props.state.timer;
+    const status = this.props.state.status;
     if (status === TIMER.INITIAL && this.state.chrono) {
       this.pause();
       this.setState({ chrono: 0 });

@@ -18,7 +18,8 @@ const App = ({ state, handler }) => {
 };
 
 const mapStateToProps = state => {
-  return { state };
+  return { state: state.board };
+  // return { state: state };
 };
 
 const mapDispatchToProps = dispatch => {
