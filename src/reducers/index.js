@@ -1,7 +1,6 @@
-import { BLUE_PRINT, CTRL_STEPS, TIMER } from "../components/const";
+import { BLUE_PRINT, CTRL_STEPS, TIMER, ActionTypes } from "../components/const";
 import { combineReducers } from "redux";
 import undoable, { groupByActionTypes } from "redux-undo";
-import { ActionTypes } from "../actions";
 
 // const timerStatusReducer = (state = TIMER.INITIAL, action) => {
 //   switch (action.type) {

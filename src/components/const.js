@@ -26,3 +26,5 @@ export const CTRL_STEPS = { up: -10, right: 1, down: 10, left: -1 };
 export const MODE = { HOR: 0, VER: 1 };
 
 export const TIMER = { INITIAL: "INITIAL", STARTED: "STARTED", PAUSED: "PAUSED" };
+
+export const ActionTypes = { TIMER: "TIMER", ACTIVE: "ACTIVE", CONTROL: "CONTROL" };

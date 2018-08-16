@@ -28,7 +28,6 @@ class BoardComp extends React.Component {
   constructor(props) {
     super(props);
     this.comps = Array(100);
-    this.handler = this.props.handler;
   }
 
   renderSquare(i) {
@@ -54,7 +53,7 @@ class BoardComp extends React.Component {
   }
 
   handleClick(i) {
-    this.handler(ActionCreators.activate(i));
+    this.props.handler(ActionCreators.activate(i));
   }
 
   /** Keyboard control keys */
@@ -62,13 +61,13 @@ class BoardComp extends React.Component {
     let cmd = CTRL_KEYS[e.keyCode];
     if (!cmd) return;
     e.preventDefault();
-    this.handler(ActionCreators.control(cmd));
+    this.props.handler(ActionCreators.control(cmd));
   }
 
   /** Keyboard press except control keys */
   handleKeyPress(e) {
     if (e.charCode >= 48 && e.charCode <= 57) {
-      this.handler(ActionCreators.control(e.charCode - 48));
+      this.props.handler(ActionCreators.control(e.charCode - 48));
     }
   }
 

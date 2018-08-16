@@ -11,13 +11,15 @@ const ControlComp = props => {
   const canUndo = props.state.past.length > 0;
   const canRedo = props.state.future.length > 0;
   const canPause = props.state.present.status !== "PAUSED";
-  const disabled = { undo: !canUndo, redo: !canRedo, pause: !canPause }[props.cmd];
+  const disabled = !!{ undo: !canUndo, redo: !canRedo, pause: !canPause }[props.cmd];
 
-  let action;
-  if (props.cmd === "undo") action = UndoActionCreators.undo();
-  else if (props.cmd === "redo") action = UndoActionCreators.redo();
-  else if (props.cmd === "pause") action = ActionCreators.setTimer(TIMER.PAUSED);
-  else action = ActionCreators.control(props.cmd);
+  const actions = {
+    undo: UndoActionCreators.undo(),
+    redo: UndoActionCreators.redo(),
+    pause: ActionCreators.setTimer(TIMER.PAUSED)
+  };
+
+  const action = actions[props.cmd] || ActionCreators.control(props.cmd);
 
   return (
     <Tappable
