@@ -1,6 +1,10 @@
 import React from "react";
 import { TIMER } from "./const";
+import { connect } from "react-redux";
 
+/**
+ * Clock is a component which has its own state.
+ */
 export class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +34,11 @@ export class Clock extends React.Component {
   }
 }
 
-export class Timer extends React.Component {
+/**
+ * TimerComp is a component which has its own state,
+ * and monitors its props for global actions.
+ */
+class TimerComp extends React.Component {
   constructor(props) {
     super(props);
     this.timer = null;
@@ -86,3 +94,11 @@ export class Timer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ state: state.board.present });
+const mapDispatchToProps = dispatch => ({});
+
+export const Timer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimerComp);

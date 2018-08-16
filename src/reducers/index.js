@@ -103,5 +103,13 @@ console.log(groupByActionTypes);
 export default combineReducers({
   board: undoable(boardReducer, {
     limit: false
+    // filter: function filterActions(action, currentState, previousHistory) {
+    //   return action.type === "CONTROL";
+    // }
   })
 }); // Adds undoable.
+
+// When connect-ing a component,
+// with a simple reducer, the state in 'mapStateToProps' is {state};
+// with 'combineReducers', the state is {state: state.board};
+// with 'undoable', the state is {state: state.board.present}.

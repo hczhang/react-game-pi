@@ -1,34 +1,15 @@
 import React from "react";
 import { Clock, Timer } from "./clock";
 import { Board } from "./board";
-import { ControlPanel } from "./control";
-import { connect } from "react-redux";
+import { ControlPanel } from "./panel";
 
-const App = ({ state, handler }) => {
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Clock />
-        <Timer state={state} />
-        <Board state={state} handler={handler} />
-        <ControlPanel state={state} handler={handler} />
-      </div>
+export const App = () => (
+  <div className="game">
+    <div className="game-board">
+      <Clock />
+      <Timer />
+      <Board />
+      <ControlPanel />
     </div>
-  );
-};
-
-const mapStateToProps = state => {
-  // return { state: state };
-  // return { state: state.board }; // With combineReducers.
-  console.log(state);
-  return { state: state.board.present }; // With undoable.
-};
-
-const mapDispatchToProps = dispatch => {
-  return { handler: action => dispatch(action) };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+  </div>
+);

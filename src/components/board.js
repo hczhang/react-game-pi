@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BLUE_PRINT, CTRL_KEYS } from "./const";
-import * as Actions from "../actions";
+import { ActionCreators } from "../actions";
+import { connect } from "react-redux";
 
 class Square extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class Square extends React.Component {
   }
 }
 
-export class Board extends React.Component {
+class BoardComp extends React.Component {
   constructor(props) {
     super(props);
     this.comps = Array(100);
@@ -53,7 +54,7 @@ export class Board extends React.Component {
   }
 
   handleClick(i) {
-    this.handler(Actions.setSquareActive(i));
+    this.handler(ActionCreators.activate(i));
   }
 
   /** Keyboard control keys */
@@ -61,13 +62,13 @@ export class Board extends React.Component {
     let cmd = CTRL_KEYS[e.keyCode];
     if (!cmd) return;
     e.preventDefault();
-    this.handler(Actions.setSquareControl(cmd));
+    this.handler(ActionCreators.control(cmd));
   }
 
   /** Keyboard press except control keys */
   handleKeyPress(e) {
     if (e.charCode >= 48 && e.charCode <= 57) {
-      this.handler(Actions.setSquareControl(e.charCode - 48));
+      this.handler(ActionCreators.control(e.charCode - 48));
     }
   }
 
@@ -83,3 +84,11 @@ export class Board extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ state: state.board.present });
+const mapDispatchToProps = dispatch => ({ handler: action => dispatch(action) });
+
+export const Board = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BoardComp);
