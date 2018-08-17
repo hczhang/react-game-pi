@@ -1,6 +1,6 @@
 import { BLUE_PRINT, CTRL_STEPS, TIMER, ActionTypes } from "../components/const";
 import { combineReducers } from "redux";
-import undoable, { groupByActionTypes } from "redux-undo";
+import undoable, { excludeAction } from "redux-undo";
 
 // const timerStatusReducer = (state = TIMER.INITIAL, action) => {
 //   switch (action.type) {
@@ -52,7 +52,7 @@ const boardReducer = (state = initialState, action) => {
     return { ...state, squares: sq, backup: bk };
   }
   // pause timer
-  else if (cmd === "pause") {
+  else if (cmd === "pause" || cmd === "esc") {
     return { ...state, status: TIMER.PAUSED };
   }
   // backspace
@@ -98,13 +98,11 @@ const boardReducer = (state = initialState, action) => {
 
 // export default boardReducer;
 // export default combineReducers({ board: boardReducer }); // Adds combineReducers.
-console.log(groupByActionTypes);
+
 export default combineReducers({
   board: undoable(boardReducer, {
-    limit: false
-    // filter: function filterActions(action, currentState, previousHistory) {
-    //   return action.type === "CONTROL";
-    // }
+    limit: false,
+    filter: excludeAction([ActionTypes.TIMER, ActionTypes.ACTIVE])
   })
 }); // Adds undoable.
 

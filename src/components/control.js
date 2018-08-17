@@ -8,8 +8,8 @@ import { TIMER } from "./const";
 export const Holder = () => <button className="holder" />;
 
 const ControlComp = props => {
-  const canUndo = props.state.past.length > 0;
-  const canRedo = props.state.future.length > 0;
+  const canUndo = props.state.past && props.state.past.length > 0;
+  const canRedo = props.state.future && props.state.future.length > 0;
   const canPause = props.state.present.status !== "PAUSED";
   const disabled = !!{ undo: !canUndo, redo: !canRedo, pause: !canPause }[props.cmd];
 
