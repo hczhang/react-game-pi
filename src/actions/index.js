@@ -1,7 +1,16 @@
-import { ActionTypes } from "../components/const";
+import { ActionTypes, TIMER } from "../components/const";
+import { ActionCreators as UndoActionCreators } from "redux-undo";
 
-const setTimer = status => ({ type: ActionTypes.TIMER, status });
-const activate = active => ({ type: ActionTypes.ACTIVE, active });
-const control = cmd => ({ type: ActionTypes.CONTROL, cmd });
+const actions = {
+  setTimer: status => ({ type: ActionTypes.TIMER, status }),
+  activate: active => ({ type: ActionTypes.ACTIVE, active }),
+  control: cmd => ({ type: ActionTypes.CONTROL, cmd }),
+  pause: () => ({ type: ActionTypes.TIMER, status: TIMER.PAUSED }),
+  undo: () => UndoActionCreators.undo(),
+  redo: () => UndoActionCreators.redo()
+};
 
-export const ActionCreators = { setTimer, activate, control };
+export const ActionCreators = {
+  ...actions,
+  get: cmd => (actions[cmd] || actions.control)(cmd)
+};

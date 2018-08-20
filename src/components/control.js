@@ -1,9 +1,7 @@
 import React from "react";
 import Tappable from "react-tappable";
 import { ActionCreators } from "../actions";
-import { ActionCreators as UndoActionCreators } from "redux-undo";
 import { connect } from "react-redux";
-import { TIMER } from "./const";
 
 export const Holder = () => <button className="holder" />;
 
@@ -11,15 +9,9 @@ const ControlComp = props => {
   const canUndo = props.state.past && props.state.past.length > 0;
   const canRedo = props.state.future && props.state.future.length > 0;
   const canPause = props.state.present.status !== "PAUSED";
-  const disabled = !!{ undo: !canUndo, redo: !canRedo, pause: !canPause }[props.cmd];
-
-  const actions = {
-    undo: UndoActionCreators.undo(),
-    redo: UndoActionCreators.redo(),
-    pause: ActionCreators.setTimer(TIMER.PAUSED)
-  };
-
-  const action = actions[props.cmd] || ActionCreators.control(props.cmd);
+  const canControl = !props.state.present.backup;
+  let disabled = !!{ undo: !canUndo, redo: !canRedo, pause: !canPause }[props.cmd];
+  disabled = disabled || (props.cmd !== "hint" && !canControl);
 
   return (
     <Tappable
@@ -29,7 +21,7 @@ const ControlComp = props => {
       className="control"
       style={props.style || {}}
       disabled={disabled}
-      onTap={() => props.handler(action)}
+      onTap={() => props.handler(ActionCreators.get(props.cmd))}
     >
       {props.value}
     </Tappable>

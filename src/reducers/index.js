@@ -23,6 +23,7 @@ const checkSolved = squares => {
 };
 
 const boardReducer = (state = initialState, action) => {
+  console.log(state);
   console.log(action);
 
   if (action.type === ActionTypes.TIMER) return { ...state, status: action.status };
