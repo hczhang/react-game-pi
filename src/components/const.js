@@ -27,4 +27,4 @@ export const MODE = { HOR: 0, VER: 1 };
 
 export const TIMER = { INITIAL: "INITIAL", STARTED: "STARTED", PAUSED: "PAUSED" };
 
-export const ActionTypes = { TIMER: "TIMER", ACTIVE: "ACTIVE", CONTROL: "CONTROL" };
+export const ActionTypes = { TIMER: "TIMER", ACTIVE: "ACTIVE", CONTROL: "CONTROL", HINT: "HINT" };

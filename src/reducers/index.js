@@ -28,6 +28,11 @@ const boardReducer = (state = initialState, action) => {
 
   if (action.type === ActionTypes.TIMER) return { ...state, status: action.status };
   if (action.type === ActionTypes.ACTIVE) return { ...state, active: action.active };
+  if (action.type === ActionTypes.HINT) {
+    const sq = state.backup ? state.backup.slice() : BLUE_PRINT.slice();
+    const bk = state.backup ? null : state.squares.slice();
+    return { ...state, squares: sq, backup: bk };
+  }
   if (action.type !== ActionTypes.CONTROL || !action.cmd) return state;
 
   const cmd = action.cmd;
@@ -45,12 +50,6 @@ const boardReducer = (state = initialState, action) => {
   else if (CTRL_STEPS[cmd]) {
     i += CTRL_STEPS[cmd];
     if (i >= 0 && i <= 99) return { ...state, active: i };
-  }
-  // hint
-  else if (cmd === "hint") {
-    const sq = state.backup ? state.backup.slice() : BLUE_PRINT.slice();
-    const bk = state.backup ? null : squares;
-    return { ...state, squares: sq, backup: bk };
   }
   // pause timer
   else if (cmd === "pause" || cmd === "esc") {
@@ -103,7 +102,7 @@ const boardReducer = (state = initialState, action) => {
 export default combineReducers({
   board: undoable(boardReducer, {
     limit: false,
-    filter: excludeAction([ActionTypes.TIMER, ActionTypes.ACTIVE])
+    filter: excludeAction([ActionTypes.TIMER, ActionTypes.ACTIVE, ActionTypes.HINT])
   })
 }); // Adds undoable.
 
