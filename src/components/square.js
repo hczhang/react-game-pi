@@ -13,11 +13,13 @@ class SquareComp extends React.Component {
 
   /** Mouse click changes square focus. */
   handleClick() {
+    if (this.props.state.backup) return;
     this.props.handler(ActionCreators.activate(this.props.position));
   }
 
   /** Keyboard control keys */
   handleKeyDown(e) {
+    if (this.props.state.backup) return;
     let cmd = CTRL_KEYS[e.keyCode];
     if (!cmd) return;
     e.preventDefault();
@@ -26,6 +28,7 @@ class SquareComp extends React.Component {
 
   /** Keyboard press except control keys */
   handleKeyPress(e) {
+    if (this.props.state.backup) return;
     if (e.charCode >= 48 && e.charCode <= 57) {
       this.props.handler(ActionCreators.control(e.charCode - 48));
     }
