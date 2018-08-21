@@ -51,5 +51,5 @@ export const getMovedNext = getUnboundNext;
 
 export const getSolvedNext = (i, direction) => {
   const cmd = { rightwards: "right", downwards: "down" }[direction];
-  return getBoundNext(i, cmd);
+  return !cmd || i === 99 ? i : getUnboundNext(i, cmd);
 };
