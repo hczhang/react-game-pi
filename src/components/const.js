@@ -6,7 +6,9 @@ const PI2 =
 
 export const BLUE_PRINT = PI.split("").map(e => +e);
 
-export const CTRL_KEYS = {
+export const TIMER = { INITIAL: "INITIAL", STARTED: "STARTED", PAUSED: "PAUSED" };
+
+const CMD_KEYS = {
   9: "right",
   27: "esc",
   33: "pageup",
@@ -21,10 +23,33 @@ export const CTRL_KEYS = {
   46: "del"
 };
 
-export const CTRL_STEPS = { up: -10, right: 1, down: 10, left: -1 };
+export const getCmdByEvent = e => CMD_KEYS[e];
 
-export const MODE = { HOR: 0, VER: 1 };
+const CMD_STEPS = { up: -10, right: 1, down: 10, left: -1 };
 
-export const TIMER = { INITIAL: "INITIAL", STARTED: "STARTED", PAUSED: "PAUSED" };
+export const isMoveCmd = cmd => !!CMD_STEPS[cmd];
 
-export const ActionTypes = { TIMER: "TIMER", ACTIVE: "ACTIVE", CONTROL: "CONTROL", HINT: "HINT" };
+const getUnboundNext = (i, cmd) => {
+  if (cmd === "up") {
+    i += i === 0 ? 99 : i <= 9 ? 89 : -10;
+  } else if (cmd === "down") {
+    i += i === 99 ? -99 : i >= 90 ? -89 : 10;
+  } else if (cmd === "left") {
+    i += i === 0 ? 99 : -1;
+  } else if (cmd === "right") {
+    i += i === 99 ? -99 : 1;
+  }
+  return i;
+};
+
+const getBoundNext = (i, cmd) => {
+  const next = i + CMD_STEPS[cmd];
+  return next < 0 || next > 99 ? i : next;
+};
+
+export const getMovedNext = getUnboundNext;
+
+export const getSolvedNext = (i, direction) => {
+  const cmd = { rightwards: "right", downwards: "down" }[direction];
+  return getBoundNext(i, cmd);
+};

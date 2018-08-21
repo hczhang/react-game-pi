@@ -1,5 +1,5 @@
 import React from "react";
-import { BLUE_PRINT, CTRL_KEYS } from "./const";
+import { BLUE_PRINT, getCmdByEvent } from "./const";
 import { ActionCreators } from "../actions";
 import { connect } from "react-redux";
 
@@ -20,7 +20,7 @@ class SquareComp extends React.Component {
   /** Keyboard control keys */
   handleKeyDown(e) {
     if (this.props.state.backup) return;
-    let cmd = CTRL_KEYS[e.keyCode];
+    let cmd = getCmdByEvent(e.keyCode);
     if (!cmd) return;
     e.preventDefault();
     this.props.handler(ActionCreators.control(cmd));

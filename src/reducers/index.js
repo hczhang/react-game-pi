@@ -1,4 +1,5 @@
-import { BLUE_PRINT, CTRL_STEPS, TIMER, ActionTypes } from "../components/const";
+import { BLUE_PRINT, TIMER, isMoveCmd, getSolvedNext, getMovedNext } from "../components/const";
+import { ActionTypes } from "../actions";
 import { combineReducers } from "redux";
 import undoable, { excludeAction } from "redux-undo";
 
@@ -15,7 +16,8 @@ const initialState = {
   active: 0,
   squares: Array(100).fill(""),
   backup: null,
-  status: TIMER.INITIAL
+  status: TIMER.INITIAL,
+  direction: "rightwards"
 };
 
 const checkSolved = squares => {
@@ -33,7 +35,11 @@ const boardReducer = (state = initialState, action) => {
     const bk = state.backup ? null : state.squares.slice();
     return { ...state, squares: sq, backup: bk };
   }
-  if (action.type !== ActionTypes.CONTROL || !action.cmd) return state;
+  if (action.type === ActionTypes.DIRECTION) {
+    return { ...state, direction: action.cmd };
+  }
+
+  if (action.type !== ActionTypes.CONTROL) return state;
 
   const cmd = action.cmd;
   const squares = state.squares.slice();
@@ -42,14 +48,13 @@ const boardReducer = (state = initialState, action) => {
   // numbers
   if (cmd >= 0 && cmd <= 9) {
     squares[i] = cmd;
-    i = squares[i] === BLUE_PRINT[i] ? Math.min(i + 1, 99) : i;
+    i = squares[i] === BLUE_PRINT[i] ? getSolvedNext(i, state.direction) : i;
     const timerStatus = checkSolved(squares) ? TIMER.PAUSED : TIMER.STARTED;
     return { ...state, squares, active: i, status: timerStatus };
   }
   // arrows left/up/right/down
-  else if (CTRL_STEPS[cmd]) {
-    i += CTRL_STEPS[cmd];
-    if (i >= 0 && i <= 99) return { ...state, active: i };
+  else if (isMoveCmd(cmd)) {
+    return { ...state, active: getMovedNext(i, cmd) };
   }
   // pause timer
   else if (cmd === "pause" || cmd === "esc") {
@@ -102,7 +107,12 @@ const boardReducer = (state = initialState, action) => {
 export default combineReducers({
   board: undoable(boardReducer, {
     limit: false,
-    filter: excludeAction([ActionTypes.TIMER, ActionTypes.ACTIVE, ActionTypes.HINT])
+    filter: excludeAction([
+      ActionTypes.TIMER,
+      ActionTypes.ACTIVE,
+      ActionTypes.HINT,
+      ActionTypes.DIRECTION
+    ])
   })
 }); // Adds undoable.
 

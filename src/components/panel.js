@@ -33,7 +33,7 @@ export const ControlPanel = () => (
       <Control value="&#8679;" cmd="up" />
       {/* redo */}
       <Control value="&#8631;" cmd="redo" />
-      <Holder />
+      <Control value="&#8595;" cmd="downwards" />
     </div>
     <div>
       <Holder />
@@ -48,7 +48,7 @@ export const ControlPanel = () => (
       <Control value="&#8681;" cmd="down" />
       {/* right arrow */}
       <Control value="&#8680;" cmd="right" />
-      <Holder />
+      <Control value="&#8594;" cmd="rightwards" />
     </div>
   </div>
 );

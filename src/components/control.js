@@ -10,7 +10,15 @@ const ControlComp = props => {
   const canRedo = props.state.future && props.state.future.length > 0;
   const canPause = props.state.present.status !== "PAUSED";
   const canControl = !props.state.present.backup;
-  let disabled = !!{ undo: !canUndo, redo: !canRedo, pause: !canPause }[props.cmd];
+  const isRightwards = props.state.present.direction === "rightwards";
+  const isDownwards = props.state.present.direction === "downwards";
+  let disabled = !!{
+    undo: !canUndo,
+    redo: !canRedo,
+    pause: !canPause,
+    rightwards: isRightwards,
+    downwards: isDownwards
+  }[props.cmd];
   disabled = disabled || (props.cmd !== "hint" && !canControl);
 
   return (

@@ -1,5 +1,13 @@
-import { ActionTypes, TIMER } from "../components/const";
+import { TIMER } from "../components/const";
 import { ActionCreators as UndoActionCreators } from "redux-undo";
+
+export const ActionTypes = {
+  TIMER: "TIMER",
+  ACTIVE: "ACTIVE",
+  CONTROL: "CONTROL",
+  HINT: "HINT",
+  DIRECTION: "DIRECTION"
+};
 
 const actions = {
   setTimer: status => ({ type: ActionTypes.TIMER, status }),
@@ -8,7 +16,9 @@ const actions = {
   hint: () => ({ type: ActionTypes.HINT }),
   pause: () => ({ type: ActionTypes.TIMER, status: TIMER.PAUSED }),
   undo: () => UndoActionCreators.undo(),
-  redo: () => UndoActionCreators.redo()
+  redo: () => UndoActionCreators.redo(),
+  rightwards: cmd => ({ type: ActionTypes.DIRECTION, cmd }),
+  downwards: cmd => ({ type: ActionTypes.DIRECTION, cmd })
 };
 
 export const ActionCreators = {
