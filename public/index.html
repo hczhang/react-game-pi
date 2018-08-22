@@ -44,6 +44,24 @@
     }
 
     if (!hasTouch()) document.body.classList.add('no-touch');
+
+    // To prevent double click zooming.
+    // Or add "user-scalable=no" to media viewport.
+    const delay = 1000;
+	  let preLastTouchStartAt = 0;
+    let lastTouchStartAt = 0;
+    document.addEventListener('touchstart', () => {
+      preLastTouchStartAt = lastTouchStartAt;
+      lastTouchStartAt = +new Date();
+    });
+  
+    document.addEventListener('touchend', (event) => {
+      const touchEndAt = +new Date();
+      if (touchEndAt - preLastTouchStartAt < delay) {
+        event.preventDefault();
+        event.target.click();
+	    }
+    });
 	</script>
 </body>
 
