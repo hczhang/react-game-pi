@@ -14,12 +14,14 @@ class BoardComp extends React.Component {
   }
 
   render() {
+    // const ranges = [...Array(10)].map((e, i) => i);
+    const ranges = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     return (
       <div>
-        {"0123456789".split("").map(row => (
+        {ranges.map(row => (
           <div key={"row" + row} className="board-row">
-            {"0123456789".split("").map(col => {
-              let i = +row * 10 + +col;
+            {ranges.map(col => {
+              let i = row * 10 + col;
               return <Square ref={comp => (this.comps[i] = comp)} key={i} position={i} />;
             })}
           </div>
