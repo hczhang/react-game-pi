@@ -17,7 +17,7 @@ class BoardComp extends React.Component {
     // const ranges = [...Array(10)].map((e, i) => i);
     const ranges = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     return (
-      <div>
+      <div className="game-board">
         {ranges.map(row => (
           <div key={"row" + row} className="board-row">
             {ranges.map(col => {
