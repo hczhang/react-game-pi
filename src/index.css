@@ -1,86 +1,103 @@
+@import url("https://fonts.googleapis.com/css?family=Special+Elite");
+
 body {
-	font: 14px "Century Gothic", Futura, sans-serif;
-	margin: 0px;
+  font: 14px "Special Elite", Futura, sans-serif;
+  margin: 0px;
 }
 
 .game {
-	height: 100vh;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-area {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .game-board {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .game-control {
-	margin-top: 3px;
-	float: right;
+  margin-top: 10px;
+  float: right;
 }
 
 .board-row {
-	display: flex;
+  display: flex;
 }
 .board-row:after {
-	clear: both;
-	content: "";
-	display: table;
+  clear: both;
+  content: "";
+  display: table;
 }
 
 .square,
 .control,
 .holder {
-	float: left;
-	padding: 0;
-	height: 34px;
-	width: 34px;
-	line-height: 34px;
-	font-size: 24px;
-	font-weight: bold;
-	text-align: center;
-	background: #fff;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	outline: none;
+  font: 14px "Special Elite", Futura, sans-serif;
+  float: left;
+  padding: 0;
+  height: 34px;
+  width: 34px;
+  line-height: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  background: #fff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
 }
 .square,
 .control {
-	margin-left: -1px;
-	margin-top: -1px;
-	border: 1px solid #999;
+  margin-left: -1px;
+  margin-top: -1px;
+  border: 1px solid #999;
 }
 .holder {
-	margin-right: -1px;
-	margin-bottom: -1px;
-	border: 1px solid transparent;
+  margin-right: -1px;
+  margin-bottom: -1px;
+  border: 1px solid transparent;
 }
 .square.active {
-	background: #ddd;
+  background: #b3e5fc; /* #ddd */
 }
 .square.solved {
-	background: #0f0;
+  background: #81d4fa; /* #0f0 */
 }
 .square.solved.active {
-	background: #0d0;
+  background: #4fc3f7; /* #0d0 */
 }
 .no-touch .control:hover {
-	background: #ddd;
+  background: #ddd;
 }
 .no-touch .control:active,
 .control:active {
-	background: #999;
+  background: #999;
 }
 
 .clock {
-	color: red;
+  color: red;
+}
+
+.undo {
+  background-image: url("./undo-arrow.svg");
+  background-size: 28px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.undo svg {
+  fill: yellow;
 }
