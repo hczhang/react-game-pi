@@ -28,7 +28,7 @@ export const ControlPanel = () => (
       <Control value="6" cmd={6} />
       <Holder />
       {/* undo */}
-      <Control value="&#8630;" cmd="undo" />
+      <Control value="&#8630;" cmd="undo" className="undo" />
       {/* up arrow */}
       <Control value="&#8679;" cmd="up" />
       {/* redo */}

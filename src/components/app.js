@@ -5,7 +5,7 @@ import { ControlPanel } from "./panel";
 
 export const App = () => (
   <div className="game">
-    <div className="game-board">
+    <div className="game-area">
       <Clock />
       <Timer />
       <Board />
