@@ -92,12 +92,12 @@ body {
   color: red;
 }
 
-.undo {
-  background-image: url("./undo-arrow.svg");
-  background-size: 28px;
-  background-position: center;
-  background-repeat: no-repeat;
+.control svg {
+  width: 34px;
+  height: 34px;
+  transform: scale(0.6);
 }
-.undo svg {
-  fill: yellow;
+
+.control:hover svg {
+  fill: #303f9f;
 }

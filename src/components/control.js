@@ -1,5 +1,6 @@
 import React from "react";
 import Tappable from "react-tappable";
+import ReactSVG from "react-svg";
 import { ActionCreators } from "../actions";
 import { connect } from "react-redux";
 
@@ -26,12 +27,12 @@ const ControlComp = props => {
       component="button"
       preventDefault
       stopPropagation
-      className={"control " + props.className}
+      className={"control"}
       style={props.style || {}}
       disabled={disabled}
       onTap={() => props.handler(ActionCreators.get(props.cmd))}
     >
-      {props.value}
+      {isNaN(props.cmd) ? <ReactSVG src={"./images/" + props.cmd + ".svg"} /> : props.cmd}
     </Tappable>
   );
 
