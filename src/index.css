@@ -82,6 +82,7 @@ body {
 }
 .no-touch .control:hover {
   background: #ddd;
+  color: #303f9f;
 }
 .no-touch .control:active,
 .control:active {
@@ -95,7 +96,7 @@ body {
 .control svg {
   width: 34px;
   height: 34px;
-  transform: scale(0.6);
+  transform: scale(0.5);
 }
 
 .control:hover svg {

@@ -6,49 +6,51 @@ export const ControlPanel = () => (
     <div>
       <Holder />
       {/* smile &#128522; pi &#960; &#120529; */}
-      <Control value="&#120529;" cmd="hint" style={{ fontFamily: "Times New Roman" }} />
-      <Control value="7" cmd={7} />
-      <Control value="8" cmd={8} />
-      <Control value="9" cmd={9} />
+      <Control cmd="hint" />
+      <Control cmd={7} />
+      <Control cmd={8} />
+      <Control cmd={9} />
       <Holder />
-      {/* backspace &#9003; &#128281; */}
-      <Control value="&#9224;" cmd="backspace" />
-      {/* delete */}
-      <Control value="&#9249;" cmd="del" />
-      {/* clear &#128259; &#9114; &#9100; &#9009; */}
-      <Control value="&#9009;" cmd="clear" />
+      {/* backspace, unicode character &#9003; &#128281; &#9224; */}
+      <Control cmd="backspace" />
+      {/* delete, unicode character &#9249; */}
+      <Control cmd="del" />
+      {/* clear, unicode character &#128259; &#9114; &#9100; &#9009; */}
+      <Control cmd="clear" />
       <Holder />
     </div>
     <div>
       <Holder />
-      {/* pause */}
-      <Control value="&#10073;&#10073;" cmd="pause" />
-      <Control value="4" cmd={4} />
-      <Control value="5" cmd={5} />
-      <Control value="6" cmd={6} />
+      {/* pause, unicode character &#10073;&#10073; */}
+      <Control cmd="pause" />
+      <Control cmd={4} />
+      <Control cmd={5} />
+      <Control cmd={6} />
       <Holder />
-      {/* undo */}
-      <Control value="&#8630;" cmd="undo" />
-      {/* up arrow */}
-      <Control value="&#8679;" cmd="up" />
-      {/* redo */}
-      <Control value="&#8631;" cmd="redo" />
-      <Control value="&#8595;" cmd="downwards" />
+      {/* undo, unicode character &#8630; */}
+      <Control cmd="undo" />
+      {/* up arrow, unicode character &#8679; */}
+      <Control cmd="up" />
+      {/* redo, unicode character &#8631; */}
+      <Control cmd="redo" />
+      {/* downwards, unicode character &#8631; &#8595; */}
+      <Control cmd="downwards" />
     </div>
     <div>
       <Holder />
-      <Control value="0" cmd={0} />
-      <Control value="1" cmd={1} />
-      <Control value="2" cmd={2} />
-      <Control value="3" cmd={3} />
+      <Control cmd={0} />
+      <Control cmd={1} />
+      <Control cmd={2} />
+      <Control cmd={3} />
       <Holder />
-      {/* left arrow */}
-      <Control value="&#8678;" cmd="left" />
-      {/* down arrow */}
-      <Control value="&#8681;" cmd="down" />
-      {/* right arrow */}
-      <Control value="&#8680;" cmd="right" />
-      <Control value="&#8594;" cmd="rightwards" />
+      {/* left arrow, unicode character &#8678; */}
+      <Control cmd="left" />
+      {/* down arrow, unicode character &#8681; */}
+      <Control cmd="down" />
+      {/* right arrow, unicode character &#8680; */}
+      <Control cmd="right" />
+      {/* rightwards, unicode character &#8594; */}
+      <Control cmd="rightwards" />
     </div>
   </div>
 );

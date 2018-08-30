@@ -28,7 +28,6 @@ const ControlComp = props => {
       preventDefault
       stopPropagation
       className={"control"}
-      style={props.style || {}}
       disabled={disabled}
       onTap={() => props.handler(ActionCreators.get(props.cmd))}
     >
