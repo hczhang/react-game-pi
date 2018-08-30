@@ -93,6 +93,10 @@ body {
   color: red;
 }
 
+.control div {
+  width: 34px;
+  height: 34px;
+}
 .control svg {
   width: 34px;
   height: 34px;
@@ -101,4 +105,14 @@ body {
 
 .control:hover svg {
   fill: #303f9f;
+}
+
+.control:disabled,
+.control:disabled:hover {
+  color: #ddd;
+}
+
+.control:disabled svg,
+.control:disabled:hover svg {
+  fill: #ddd;
 }

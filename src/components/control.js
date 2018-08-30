@@ -29,7 +29,13 @@ const ControlComp = props => {
       stopPropagation
       className={"control"}
       disabled={disabled}
-      onTap={() => props.handler(ActionCreators.get(props.cmd))}
+      onTap={
+        disabled
+          ? null
+          : e => {
+              props.handler(ActionCreators.get(props.cmd));
+            }
+      }
     >
       {isNaN(props.cmd) ? <ReactSVG src={"./images/" + props.cmd + ".svg"} /> : props.cmd}
     </Tappable>
