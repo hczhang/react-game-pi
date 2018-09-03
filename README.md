@@ -15,5 +15,12 @@ npm install
 npm start
 ```
 
+## Build
+```
+npm run-script build
+serve -l 3000 build
+
+```
+
 ## License
 MIT

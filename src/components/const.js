@@ -43,6 +43,7 @@ const getUnboundNext = (i, cmd) => {
   return i;
 };
 
+// eslint-disable-next-line
 const getBoundNext = (i, cmd) => {
   const next = i + CMD_STEPS[cmd];
   return next < 0 || next > 99 ? i : next;
