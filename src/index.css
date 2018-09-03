@@ -116,3 +116,7 @@ body {
 .control:disabled:hover svg {
   fill: #ddd;
 }
+
+svg {
+  pointer-events: none;
+}

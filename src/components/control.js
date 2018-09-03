@@ -1,6 +1,6 @@
 import React from "react";
 import Tappable from "react-tappable";
-import ReactSVG from "react-svg";
+import { Svg } from "./svg";
 import { ActionCreators } from "../actions";
 import { connect } from "react-redux";
 
@@ -22,6 +22,7 @@ const ControlComp = props => {
   }[props.cmd];
   disabled = disabled || (props.cmd !== "hint" && !canControl);
 
+  const SvgIcon = isNaN(props.cmd) ? Svg[props.cmd] : null;
   return (
     <Tappable
       component="button"
@@ -37,7 +38,7 @@ const ControlComp = props => {
             }
       }
     >
-      {isNaN(props.cmd) ? <ReactSVG src={"./images/" + props.cmd + ".svg"} /> : props.cmd}
+      {isNaN(props.cmd) ? <SvgIcon /> : props.cmd}
     </Tappable>
   );
 
