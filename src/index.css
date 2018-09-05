@@ -68,8 +68,11 @@ body {
   margin-bottom: -1px;
   border: 1px solid transparent;
 }
-.square.active {
+.theme01 .square.active {
   background: #b3e5fc; /* #ddd */
+}
+.theme02 .square.active {
+  background: lightgreen;
 }
 .square.solved {
   background: #81d4fa; /* #0f0 */

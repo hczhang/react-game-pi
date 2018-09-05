@@ -17,7 +17,7 @@ export const ControlPanel = () => (
       <Control cmd="del" />
       {/* clear, unicode character &#128259; &#9114; &#9100; &#9009; */}
       <Control cmd="clear" />
-      <Holder />
+      <Control cmd="theme" />
     </div>
     <div>
       <Holder />

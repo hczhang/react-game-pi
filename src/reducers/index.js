@@ -17,7 +17,8 @@ const initialState = {
   squares: Array(100).fill(""),
   backup: null,
   status: TIMER.INITIAL,
-  direction: "rightwards"
+  direction: "rightwards",
+  theme: "theme01"
 };
 
 const checkSolved = squares => {
@@ -74,6 +75,10 @@ const boardReducer = (state = initialState, action) => {
   // clear all
   else if (cmd === "clear") {
     return { ...state, squares: Array(100).fill(""), active: 0, status: TIMER.INITIAL };
+  }
+  // theme
+  else if (cmd === "theme") {
+    return { ...state, theme: "theme02" };
   }
   // undo
   else if (cmd === "undo") {
