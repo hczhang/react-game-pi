@@ -70,31 +70,6 @@ body {
   pointer-events: none;
 }
 
-.theme01 .control:hover svg {
-  fill: #303f9f;
-}
-.theme02 .control:hover svg {
-  fill: #303f9f;
-}
-
-.theme01 .control:disabled,
-.theme01 .control:disabled:hover {
-  color: #ddd;
-}
-.theme02.game-page .control:disabled,
-.theme02 .control:disabled:hover {
-  color: #ddd;
-}
-
-.theme01 .control:disabled svg,
-.theme01 .control:disabled:hover svg {
-  fill: #ddd;
-}
-.theme02 .control:disabled svg,
-.theme02 .control:disabled:hover svg {
-  fill: #ddd;
-}
-
 .theme01 .clock,
 .theme02 .clock {
   color: red;
@@ -158,4 +133,29 @@ body {
 .no-touch .theme02 .control:active,
 .theme02 .control:active {
   background: #999;
+}
+
+.theme01 .control:hover svg {
+  fill: #303f9f;
+}
+.theme02 .control:hover svg {
+  fill: #303f9f;
+}
+
+.theme01 .control:disabled,
+.theme01 .control:disabled:hover {
+  color: #ddd;
+}
+.theme02.game-page .control:disabled,
+.theme02 .control:disabled:hover {
+  color: #ddd;
+}
+
+.theme01 .control:disabled svg,
+.theme01 .control:disabled:hover svg {
+  fill: #ddd;
+}
+.theme02 .control:disabled svg,
+.theme02 .control:disabled:hover svg {
+  fill: #ddd;
 }
