@@ -13,7 +13,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 .game-area {
   position: absolute;
   left: 50%;
@@ -55,62 +54,108 @@ body {
   -ms-user-select: none;
   user-select: none;
   outline: none;
-  background: #fff;
 }
 .square,
 .control {
   margin-left: -1px;
   margin-top: -1px;
-  border: 1px solid #999;
 }
 .holder {
   margin-right: -1px;
   margin-bottom: -1px;
   border: 1px solid transparent;
 }
+.control svg {
+  transform: scale(0.6);
+  pointer-events: none;
+}
+
+.theme01 .control:hover svg {
+  fill: #303f9f;
+}
+.theme02 .control:hover svg {
+  fill: #303f9f;
+}
+
+.theme01 .control:disabled,
+.theme01 .control:disabled:hover {
+  color: #ddd;
+}
+.theme02.game-page .control:disabled,
+.theme02 .control:disabled:hover {
+  color: #ddd;
+}
+
+.theme01 .control:disabled svg,
+.theme01 .control:disabled:hover svg {
+  fill: #ddd;
+}
+.theme02 .control:disabled svg,
+.theme02 .control:disabled:hover svg {
+  fill: #ddd;
+}
+
+.theme01 .clock,
+.theme02 .clock {
+  color: red;
+}
+.theme01.game-page {
+  background: #fff;
+}
+.theme02.game-page {
+  background: #ddd;
+}
+.theme01 .square,
+.theme01 .control,
+.theme01 .holder {
+  background: #fff;
+}
+.theme02 .square,
+.theme02 .control,
+.theme02 .holder {
+  background: #ddd;
+}
+.theme01 .square,
+.theme01 .control {
+  border: 1px solid #999;
+}
+.theme02 .square,
+.theme02 .control {
+  border: 1px solid #999;
+}
+
 .theme01 .square.active {
   background: #b3e5fc; /* #ddd */
 }
 .theme02 .square.active {
   background: lightgreen;
 }
-.square.solved {
+
+.theme01 .square.solved {
   background: #81d4fa; /* #0f0 */
 }
-.square.solved.active {
+.theme02 .square.solved {
+  background: #81d4fa; /* #0f0 */
+}
+.theme01 .square.solved.active {
   background: #4fc3f7; /* #0d0 */
 }
-.no-touch .control:hover {
+.theme02 .square.solved.active {
+  background: #4fc3f7; /* #0d0 */
+}
+.no-touch .theme01 .control:hover {
   background: #ddd;
   color: #303f9f;
 }
-.no-touch .control:active,
-.control:active {
+.no-touch .theme01 .control:active,
+.theme01 .control:active {
   background: #999;
 }
-
-.clock {
-  color: red;
+.no-touch .theme02 .control:hover {
+  background: #ddd;
+  color: #303f9f;
 }
-
-.control svg {
-  transform: scale(0.6);
-}
-
-.control:hover svg {
-  fill: #303f9f;
-}
-
-.control:disabled,
-.control:disabled:hover {
-  color: #ddd;
-}
-
-.control:disabled svg,
-.control:disabled:hover svg {
-  fill: #ddd;
-}
-
-svg {
-  pointer-events: none;
+.no-touch .theme02 .control:active,
+.theme02 .control:active {
+  background: #999;
 }
