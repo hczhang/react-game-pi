@@ -39,6 +39,10 @@ const boardReducer = (state = initialState, action) => {
   if (action.type === ActionTypes.DIRECTION) {
     return { ...state, direction: action.cmd };
   }
+  if (action.type === ActionTypes.THEME) {
+    const theme = state.theme === "theme01" ? "theme02" : "theme01";
+    return { ...state, theme };
+  }
 
   if (action.type !== ActionTypes.CONTROL) return state;
 
@@ -116,7 +120,8 @@ export default combineReducers({
       ActionTypes.TIMER,
       ActionTypes.ACTIVE,
       ActionTypes.HINT,
-      ActionTypes.DIRECTION
+      ActionTypes.DIRECTION,
+      ActionTypes.THEME
     ])
   })
 }); // Adds undoable.

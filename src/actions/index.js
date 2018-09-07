@@ -6,7 +6,8 @@ export const ActionTypes = {
   ACTIVE: "ACTIVE",
   CONTROL: "CONTROL",
   HINT: "HINT",
-  DIRECTION: "DIRECTION"
+  DIRECTION: "DIRECTION",
+  THEME: "THEME"
 };
 
 const actions = {
@@ -15,6 +16,7 @@ const actions = {
   control: cmd => ({ type: ActionTypes.CONTROL, cmd }),
   hint: () => ({ type: ActionTypes.HINT }),
   pause: () => ({ type: ActionTypes.TIMER, status: TIMER.PAUSED }),
+  theme: () => ({ type: ActionTypes.THEME }),
   undo: () => UndoActionCreators.undo(),
   redo: () => UndoActionCreators.redo(),
   rightwards: cmd => ({ type: ActionTypes.DIRECTION, cmd }),
