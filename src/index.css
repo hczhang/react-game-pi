@@ -19,7 +19,6 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
 .game-board {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
@@ -70,25 +69,32 @@ body {
   pointer-events: none;
 }
 
-.theme01 .clock,
+/**
+ * Theme colors
+ * theme01: light
+ * theme02: dark
+ */
+.theme01 .clock {
+  color: #000;
+}
 .theme02 .clock {
-  color: red;
+  color: #fff;
 }
-.theme01.game-page {
-  background: #fff;
-}
-.theme02.game-page {
-  background: #ddd;
-}
-.theme01 .square,
-.theme01 .control,
+.theme01.game-page,
 .theme01 .holder {
   background: #fff;
 }
-.theme02 .square,
-.theme02 .control,
+.theme02.game-page,
 .theme02 .holder {
-  background: #ddd;
+  background: #222;
+}
+.theme01 .square,
+.theme01 .control {
+  background: #fff;
+}
+.theme02 .square,
+.theme02 .control {
+  background: #bbb;
 }
 .theme01 .square,
 .theme01 .control {
@@ -103,7 +109,7 @@ body {
   background: #b3e5fc; /* #ddd */
 }
 .theme02 .square.active {
-  background: lightgreen;
+  background: #ddd;
 }
 
 .theme01 .square.solved {
@@ -157,5 +163,5 @@ body {
 }
 .theme02 .control:disabled svg,
 .theme02 .control:disabled:hover svg {
-  fill: #ddd;
+  fill: #999;
 }
